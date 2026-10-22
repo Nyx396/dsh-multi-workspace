@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Multi-folder Workspace",
+    "description": "Create a Workspace with several folders at once, and add or remove folders on an existing Workspace from its row menu. Any Session in the Workspace can read every member folder; writes outside the primary folder use the normal sandbox escalation approval."
+  }
+}

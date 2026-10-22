@@ -1,0 +1,7 @@
+# dsh-multi-workspace bundle patch.
+# One Host row (state store + /api/multi-workspace/state exact Fetch route +
+# multi-folder system-prompt section). Its browser half is declared by the
+# package's dsh.client section and loads through the client module system.
+- insert:
+    - id: dsh-multi-workspace
+      name: dsh-multi-workspace
