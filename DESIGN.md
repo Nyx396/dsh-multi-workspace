@@ -164,7 +164,7 @@ window.__ModuleLoader__.load({
 
 ## 6. 验证
 
-- 本机 DSH：profile `desktop`，`DSH_HOME=C:\Users\曹智皓\.dsh`，Web URL http://127.0.0.1:64620，版本 0.2.1-rc.2。
+- 本机 DSH：profile `desktop`，`DSH_HOME=C:\Users\USERPROFILE\.dsh`，Web URL http://127.0.0.1:64620，版本 0.2.1-rc.2。
 - 安装：`plugin_manager install_bundle` target = 本目录绝对路径（Lead 执行）。
 - 安装后检查：
   - `cordis_inspect_query` Config `listConfigs` name `dsh-multi-workspace` 有条目；
