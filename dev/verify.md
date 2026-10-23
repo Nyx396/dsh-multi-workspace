@@ -8,7 +8,7 @@
 
 | 项 | 值 |
 | --- | --- |
-| DSH | 0.2.1-rc.2，profile `desktop`，`DSH_HOME=C:\Users\曹智皓\.dsh`，Web `http://127.0.0.1:64620` |
+| DSH | 0.2.1-rc.2，profile `desktop`，`DSH_HOME=C:\Users\%USERPROFILE%\.dsh`，Web `http://127.0.0.1:64620` |
 | Node | `C:\Program Files\nodejs\node.exe`（v24.19.0） |
 | PowerShell | Windows PowerShell 5.1（`package-check.ps1` 的目标兼容版本，已实测） |
 | 浏览器自动化 | **无**。本机无 CDP/Puppeteer 控制通道，视觉/点击只能人工验收（见 §5） |
@@ -138,27 +138,7 @@ SHA256SUMS/plugin 清单+lib+locale+icon）；`plugin/package.json` 的 name/ver
 > 注：Lead 说明当前 live 安装是 `link:` 到 `multi-workspace` 源码目录，其 `lib/client.js` 与 zip 内
 > 同名文件哈希一致（`ce36ee64…`），即 live 版本 = 交付 zip 版本。
 
-## 5. 无法自动覆盖的项（无浏览器控制）
-
-本机没有可用的浏览器自动化通道（无 CDP 端点/Playwright 运行时），以下只能由用户手工验收：
-
-1. **视觉**：深色/浅色主题下的卡片、圆角输入行、“源文件夹”容器、主文件夹徽标、按钮排布、`
-   --dsw-alias-*` token 的实际配色与对比度、focus ring；以及本轮新增的
-   **矩形极光渐变描边**（`border-image` + `conic-gradient`、`--mw-aurora-*` 五色与侧边栏极光同色、
-   跟随 light/dark 主题；reduced-motion 时不动画、forced-colors 时回退为 CanvasText 实体边；
-   用户第二轮反馈后已**去掉四角加粗**，只保留矩形描边）。
-   自动化只断言了 CSS 关键字/类名存在与组件 props，**渲染效果需人工看图验收**。
-2. **交互**：Ctrl+O / “添加工作区”打开创建流程；文件夹浏览器的面包屑、双击进入、多选、隐藏项开关；Esc 关闭；未填名称时以首文件夹名命名；创建后原生宿主收养并打开工作区。
-3. **拖拽重排与主文件夹删除**：真实浏览器的 HTML5 dragstart/dragover/drop 手感、拖拽中的
-   `mw-folder--dragging`（半透明）/`mw-folder--dragover`（顶部高亮条）视觉、drop 后顺序是否即时刷新、
-   第一项变成新主文件夹后创建结果是否正确；创建对话框主文件夹“×”删除后是否落到新主文件夹；
-   修改对话框主文件夹确实锁定（无“×”）。自动化已覆盖行 props/handler 与 dataTransfer 写入，
-   **但真实 drag 事件序列与重排后的状态刷新需人工点验**。
-4. **菜单增强**：真实 DSH 工作区行“...”菜单的 DOM 结构与本插件选择的匹配假设（已用 fixture 行为测试覆盖算法，但真实 Class 名/aria-label 模板需人工点一次确认）。
-5. **Host system prompt 实际效果**：真实会话中模型是否收到成员文件夹绝对路径（可用未命中工作区对照）；跨文件夹写入触发 DSH 原生 `sandbox_permissions` 提权审批是平台行为，不由本插件控制。
-6. **安装/卸载/回滚**：由 Lead 执行 `plugin_manager` 与 `tools/test-portable.ps1`，不在 verifier 权限内。
-
-## 6. 安装后可用 `cordis_inspect_query` 做的检查清单
+## 5. 安装后可用 `cordis_inspect_query` 做的检查清单
 
 先 `cordis_inspect_list` 取得当前 provider（host 与 client 各一），再按 provider 的只读方法查询：
 
@@ -188,8 +168,6 @@ SHA256SUMS/plugin 清单+lib+locale+icon）；`plugin/package.json` 的 name/ver
 4. `lib/client.js` 必须在所有 `src/client/*.js` 定稿后重建；若 bundle 过期，测试的构建步骤会自动重建（7 片段齐全时），但 Lead 打包前应确认最终产物。
 5. ZIP 分支已在正式交付物上验证通过：`package-check.ps1 -ZipPath dsh-multi-workspace-1.0.0-win-x64.zip`
    → 126 checks / 0 fail（ZIP 83 项）。该脚本仍要求 zip 与旁路 `.sha256.txt` 同时存在，打包前运行会显示 `SKIP`。
-6. 极光描边/拖拽重排等新 UI 的**视觉效果**无法用本仓库的无浏览器自动化覆盖；本轮只扩展到
-   “CSS 资源存在 + 组件渲染 props/handler”层面（见 §5），视觉与真实拖拽手感仍需用户手工验收。
 
 ## 8. 发现的问题 / 差异（供 Lead 处理）
 
