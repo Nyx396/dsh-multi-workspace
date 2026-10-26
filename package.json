@@ -1,6 +1,6 @@
 {
   "name": "dsh-multi-workspace",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "DSH 多文件夹工作区：创建工作区时可一次选择多个文件夹，并可通过工作区菜单给已有工作区添加/移除文件夹。",
   "type": "module",
@@ -22,7 +22,7 @@
   ],
   "engines": {
     "node": ">=20",
-    "dsh": "0.2.1-rc.2"
+    "dsh": "0.2.1-rc.3"
   },
   "license": "MIT",
   "dsh": {
