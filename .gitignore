@@ -1,0 +1,16 @@
+node_modules/
+dist/
+tools/out/
+tools/test-work/
+test/artifacts/
+test/fixtures/
+verification/
+.local-deps/
+vendor/ffmpeg/bin/
+vendor/ffmpeg/source/
+*.log
+*.tmp
+.env
+.env.*
+*.zip
+*.zip.sha256.txt
